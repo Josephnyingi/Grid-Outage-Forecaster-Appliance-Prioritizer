@@ -3,7 +3,7 @@ run_all.py — One-shot runner: generate data, train, forecast, evaluate, plan.
 Reproducible in ≤ 2 commands on a free Colab CPU.
 """
 
-import subprocess, sys, json
+import subprocess, sys, json, glob
 from pathlib import Path
 
 def run(cmd):
@@ -19,7 +19,24 @@ if __name__ == "__main__":
     run([py, "generate_data.py"])
     run([py, "forecaster.py", "--train"])
     run([py, "forecaster.py", "--forecast", "--eval"])
-    run([py, "prioritizer.py", "--forecast", "outputs/forecast_2024-06-29.csv", "--business", "all"])
+
+    # Discover the forecast file dynamically — robust across any run date
+    forecast_files = sorted(glob.glob("outputs/forecast_*.csv"))
+    if not forecast_files:
+        print("ERROR: no forecast file found in outputs/")
+        sys.exit(1)
+    forecast_path = forecast_files[-1]
+    print(f"\nUsing forecast: {forecast_path}")
+
+    run([py, "prioritizer.py", "--forecast", forecast_path, "--business", "all"])
+
+    # Execute eval notebook (nbconvert if available, else skip gracefully)
+    try:
+        run([py, "-m", "jupyter", "nbconvert", "--to", "notebook",
+             "--execute", "--inplace", "eval.ipynb"])
+        print("eval.ipynb executed successfully.")
+    except SystemExit:
+        print("Note: jupyter not found — open eval.ipynb manually to run evaluation plots.")
 
     # Print summary
     with open("outputs/eval_metrics.json") as f:
