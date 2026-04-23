@@ -144,8 +144,8 @@ def generate_businesses(appliances: list) -> list:
 
 
 def main():
-    print("Generating grid_history.csv (180 days hourly)...")
-    df = generate_grid_history(180)
+    print("Generating grid_history.csv (365 days hourly)...")
+    df = generate_grid_history(365)
     out_path = DATA_DIR / "grid_history.csv"
     df.to_csv(out_path, index=False)
     outage_rate = df["outage"].mean()

@@ -115,20 +115,20 @@
       "ON",
       "ON",
       "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
       "ON",
       "ON",
       "ON",
       "ON",
       "ON",
       "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
       "ON"
     ],
     "Television": [
@@ -141,28 +141,28 @@
       "ON",
       "ON",
       "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
       "ON",
       "ON",
       "ON",
       "ON",
       "ON",
       "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
       "ON"
     ]
   },
   "hourly_summary": [
     {
       "hour": 0,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0563,
+      "e_duration_min": 75.2,
       "risk_level": "low",
       "appliances_on": [
         "POS / Cash Register",
@@ -174,12 +174,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 2310,
-      "expected_revenue_rwf": 13817.28
+      "expected_revenue_rwf": 13966.76
     },
     {
       "hour": 1,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0538,
+      "e_duration_min": 72.5,
       "risk_level": "low",
       "appliances_on": [
         "POS / Cash Register",
@@ -191,12 +191,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 2310,
-      "expected_revenue_rwf": 13817.28
+      "expected_revenue_rwf": 14003.76
     },
     {
       "hour": 2,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0512,
+      "e_duration_min": 77.8,
       "risk_level": "low",
       "appliances_on": [
         "POS / Cash Register",
@@ -208,12 +208,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 2310,
-      "expected_revenue_rwf": 13817.28
+      "expected_revenue_rwf": 14042.24
     },
     {
       "hour": 3,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0516,
+      "e_duration_min": 77.4,
       "risk_level": "low",
       "appliances_on": [
         "POS / Cash Register",
@@ -225,12 +225,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 2310,
-      "expected_revenue_rwf": 13817.28
+      "expected_revenue_rwf": 14036.32
     },
     {
       "hour": 4,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0544,
+      "e_duration_min": 77.5,
       "risk_level": "low",
       "appliances_on": [
         "POS / Cash Register",
@@ -242,12 +242,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 2310,
-      "expected_revenue_rwf": 13817.28
+      "expected_revenue_rwf": 13994.88
     },
     {
       "hour": 5,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0625,
+      "e_duration_min": 70.7,
       "risk_level": "low",
       "appliances_on": [
         "POS / Cash Register",
@@ -259,12 +259,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 2310,
-      "expected_revenue_rwf": 13817.28
+      "expected_revenue_rwf": 13875.0
     },
     {
       "hour": 6,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0776,
+      "e_duration_min": 68.4,
       "risk_level": "low",
       "appliances_on": [
         "POS / Cash Register",
@@ -276,12 +276,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 2310,
-      "expected_revenue_rwf": 13817.28
+      "expected_revenue_rwf": 13651.52
     },
     {
       "hour": 7,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0997,
+      "e_duration_min": 67.2,
       "risk_level": "low",
       "appliances_on": [
         "POS / Cash Register",
@@ -293,12 +293,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 2310,
-      "expected_revenue_rwf": 13491.68
+      "expected_revenue_rwf": 13324.44
     },
     {
       "hour": 8,
-      "p_outage": 0.1143,
-      "e_duration_min": 76.0,
+      "p_outage": 0.1265,
+      "e_duration_min": 69.5,
       "risk_level": "medium",
       "appliances_on": [
         "POS / Cash Register",
@@ -311,63 +311,66 @@
         "Television"
       ],
       "total_load_w": 2130,
-      "expected_revenue_rwf": 12842.65
+      "expected_revenue_rwf": 12665.75
     },
     {
       "hour": 9,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.139,
+      "e_duration_min": 70.1,
+      "risk_level": "medium",
       "appliances_on": [
         "POS / Cash Register",
         "Refrigeration Compressor",
         "LED Lighting (main)",
-        "Water Pump",
+        "Water Pump"
+      ],
+      "appliances_off": [
         "Decorative Lighting",
         "Television"
       ],
-      "appliances_off": [],
-      "total_load_w": 2310,
-      "expected_revenue_rwf": 13491.68
+      "total_load_w": 2130,
+      "expected_revenue_rwf": 12484.5
     },
     {
       "hour": 10,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.1314,
+      "e_duration_min": 71.4,
+      "risk_level": "medium",
       "appliances_on": [
         "POS / Cash Register",
         "Refrigeration Compressor",
         "LED Lighting (main)",
-        "Water Pump",
+        "Water Pump"
+      ],
+      "appliances_off": [
         "Decorative Lighting",
         "Television"
       ],
-      "appliances_off": [],
-      "total_load_w": 2310,
-      "expected_revenue_rwf": 13491.68
+      "total_load_w": 2130,
+      "expected_revenue_rwf": 12594.7
     },
     {
       "hour": 11,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.1114,
+      "e_duration_min": 71.9,
+      "risk_level": "medium",
       "appliances_on": [
         "POS / Cash Register",
         "Refrigeration Compressor",
         "LED Lighting (main)",
-        "Water Pump",
+        "Water Pump"
+      ],
+      "appliances_off": [
         "Decorative Lighting",
         "Television"
       ],
-      "appliances_off": [],
-      "total_load_w": 2310,
-      "expected_revenue_rwf": 13817.28
+      "total_load_w": 2130,
+      "expected_revenue_rwf": 12884.7
     },
     {
       "hour": 12,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0924,
+      "e_duration_min": 73.0,
       "risk_level": "low",
       "appliances_on": [
         "POS / Cash Register",
@@ -379,12 +382,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 2310,
-      "expected_revenue_rwf": 13491.68
+      "expected_revenue_rwf": 13432.48
     },
     {
       "hour": 13,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0802,
+      "e_duration_min": 74.8,
       "risk_level": "low",
       "appliances_on": [
         "POS / Cash Register",
@@ -396,12 +399,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 2310,
-      "expected_revenue_rwf": 13491.68
+      "expected_revenue_rwf": 13613.04
     },
     {
       "hour": 14,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0732,
+      "e_duration_min": 81.7,
       "risk_level": "low",
       "appliances_on": [
         "POS / Cash Register",
@@ -413,12 +416,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 2310,
-      "expected_revenue_rwf": 13491.68
+      "expected_revenue_rwf": 13716.64
     },
     {
       "hour": 15,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0726,
+      "e_duration_min": 81.5,
       "risk_level": "low",
       "appliances_on": [
         "POS / Cash Register",
@@ -430,12 +433,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 2310,
-      "expected_revenue_rwf": 13491.68
+      "expected_revenue_rwf": 13725.52
     },
     {
       "hour": 16,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0782,
+      "e_duration_min": 79.6,
       "risk_level": "low",
       "appliances_on": [
         "POS / Cash Register",
@@ -447,12 +450,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 2310,
-      "expected_revenue_rwf": 13491.68
+      "expected_revenue_rwf": 13642.64
     },
     {
       "hour": 17,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0935,
+      "e_duration_min": 74.3,
       "risk_level": "low",
       "appliances_on": [
         "POS / Cash Register",
@@ -464,97 +467,102 @@
       ],
       "appliances_off": [],
       "total_load_w": 2310,
-      "expected_revenue_rwf": 13491.68
+      "expected_revenue_rwf": 13416.2
     },
     {
       "hour": 18,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.1226,
+      "e_duration_min": 72.7,
+      "risk_level": "medium",
       "appliances_on": [
         "POS / Cash Register",
         "Refrigeration Compressor",
         "LED Lighting (main)",
-        "Water Pump",
+        "Water Pump"
+      ],
+      "appliances_off": [
         "Decorative Lighting",
         "Television"
       ],
-      "appliances_off": [],
-      "total_load_w": 2310,
-      "expected_revenue_rwf": 13491.68
+      "total_load_w": 2130,
+      "expected_revenue_rwf": 12722.3
     },
     {
       "hour": 19,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.1519,
+      "e_duration_min": 72.5,
+      "risk_level": "medium",
       "appliances_on": [
         "POS / Cash Register",
         "Refrigeration Compressor",
         "LED Lighting (main)",
-        "Water Pump",
+        "Water Pump"
+      ],
+      "appliances_off": [
         "Decorative Lighting",
         "Television"
       ],
-      "appliances_off": [],
-      "total_load_w": 2310,
-      "expected_revenue_rwf": 13491.68
+      "total_load_w": 2130,
+      "expected_revenue_rwf": 12297.45
     },
     {
       "hour": 20,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.1626,
+      "e_duration_min": 72.7,
+      "risk_level": "medium",
       "appliances_on": [
         "POS / Cash Register",
         "Refrigeration Compressor",
         "LED Lighting (main)",
-        "Water Pump",
+        "Water Pump"
+      ],
+      "appliances_off": [
         "Decorative Lighting",
         "Television"
       ],
-      "appliances_off": [],
-      "total_load_w": 2310,
-      "expected_revenue_rwf": 13491.68
+      "total_load_w": 2130,
+      "expected_revenue_rwf": 12142.3
     },
     {
       "hour": 21,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.1419,
+      "e_duration_min": 74.7,
+      "risk_level": "medium",
       "appliances_on": [
         "POS / Cash Register",
         "Refrigeration Compressor",
         "LED Lighting (main)",
-        "Water Pump",
+        "Water Pump"
+      ],
+      "appliances_off": [
         "Decorative Lighting",
         "Television"
       ],
-      "appliances_off": [],
-      "total_load_w": 2310,
-      "expected_revenue_rwf": 13491.68
+      "total_load_w": 2130,
+      "expected_revenue_rwf": 12442.45
     },
     {
       "hour": 22,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.1044,
+      "e_duration_min": 73.4,
+      "risk_level": "medium",
       "appliances_on": [
         "POS / Cash Register",
         "Refrigeration Compressor",
         "LED Lighting (main)",
-        "Water Pump",
+        "Water Pump"
+      ],
+      "appliances_off": [
         "Decorative Lighting",
         "Television"
       ],
-      "appliances_off": [],
-      "total_load_w": 2310,
-      "expected_revenue_rwf": 13491.68
+      "total_load_w": 2130,
+      "expected_revenue_rwf": 12986.2
     },
     {
       "hour": 23,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0776,
+      "e_duration_min": 74.6,
       "risk_level": "low",
       "appliances_on": [
         "POS / Cash Register",
@@ -566,13 +574,13 @@
       ],
       "appliances_off": [],
       "total_load_w": 2310,
-      "expected_revenue_rwf": 13491.68
+      "expected_revenue_rwf": 13651.52
     }
   ],
-  "total_expected_revenue_rwf": 325756.09,
-  "total_naive_revenue_rwf": 326021.8,
-  "revenue_difference_rwf": -265.71,
-  "kwh_saved_by_shedding": 0.021,
+  "total_expected_revenue_rwf": 319313.31,
+  "total_naive_revenue_rwf": 321655.8,
+  "revenue_difference_rwf": -2342.49,
+  "kwh_saved_by_shedding": 0.215,
   "thresholds": {
     "low_risk": 0.1,
     "high_risk": 0.25

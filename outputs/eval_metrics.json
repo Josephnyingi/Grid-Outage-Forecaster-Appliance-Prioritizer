@@ -1,8 +1,8 @@
 {
-  "brier_score": 0.06996,
-  "duration_mae_min": 38.4,
-  "avg_lead_time_hours": 1.0,
-  "n_outages_eval": 55,
-  "outage_rate_eval": 0.0764,
+  "brier_score": 0.07658,
+  "duration_mae_min": 56.08,
+  "avg_lead_time_hours": 1.6,
+  "n_outages_eval": 62,
+  "outage_rate_eval": 0.0861,
   "eval_period_days": 30
 }

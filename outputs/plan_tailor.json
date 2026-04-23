@@ -115,20 +115,20 @@
       "ON",
       "ON",
       "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
       "ON",
       "ON",
       "ON",
       "ON",
       "ON",
       "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
       "ON"
     ],
     "Sound System": [
@@ -141,28 +141,28 @@
       "ON",
       "ON",
       "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
       "ON",
       "ON",
       "ON",
       "ON",
       "ON",
       "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
       "ON"
     ]
   },
   "hourly_summary": [
     {
       "hour": 0,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0563,
+      "e_duration_min": 75.2,
       "risk_level": "low",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -174,12 +174,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 625,
-      "expected_revenue_rwf": 5881.68
+      "expected_revenue_rwf": 5945.31
     },
     {
       "hour": 1,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0538,
+      "e_duration_min": 72.5,
       "risk_level": "low",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -191,12 +191,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 625,
-      "expected_revenue_rwf": 5881.68
+      "expected_revenue_rwf": 5961.06
     },
     {
       "hour": 2,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0512,
+      "e_duration_min": 77.8,
       "risk_level": "low",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -208,12 +208,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 625,
-      "expected_revenue_rwf": 5881.68
+      "expected_revenue_rwf": 5977.44
     },
     {
       "hour": 3,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0516,
+      "e_duration_min": 77.4,
       "risk_level": "low",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -225,12 +225,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 625,
-      "expected_revenue_rwf": 5881.68
+      "expected_revenue_rwf": 5974.92
     },
     {
       "hour": 4,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0544,
+      "e_duration_min": 77.5,
       "risk_level": "low",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -242,12 +242,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 625,
-      "expected_revenue_rwf": 5881.68
+      "expected_revenue_rwf": 5957.28
     },
     {
       "hour": 5,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0625,
+      "e_duration_min": 70.7,
       "risk_level": "low",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -259,12 +259,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 625,
-      "expected_revenue_rwf": 5881.68
+      "expected_revenue_rwf": 5906.25
     },
     {
       "hour": 6,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0776,
+      "e_duration_min": 68.4,
       "risk_level": "low",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -276,12 +276,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 625,
-      "expected_revenue_rwf": 5881.68
+      "expected_revenue_rwf": 5811.12
     },
     {
       "hour": 7,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0997,
+      "e_duration_min": 67.2,
       "risk_level": "low",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -293,12 +293,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 625,
-      "expected_revenue_rwf": 5743.08
+      "expected_revenue_rwf": 5671.89
     },
     {
       "hour": 8,
-      "p_outage": 0.1143,
-      "e_duration_min": 76.0,
+      "p_outage": 0.1265,
+      "e_duration_min": 69.5,
       "risk_level": "medium",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -311,63 +311,66 @@
         "Sound System"
       ],
       "total_load_w": 305,
-      "expected_revenue_rwf": 5137.06
+      "expected_revenue_rwf": 5066.3
     },
     {
       "hour": 9,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.139,
+      "e_duration_min": 70.1,
+      "risk_level": "medium",
       "appliances_on": [
         "Electric Sewing Machine",
         "POS / Cash Register",
         "LED Lighting (main)",
-        "Ceiling Fan",
+        "Ceiling Fan"
+      ],
+      "appliances_off": [
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 625,
-      "expected_revenue_rwf": 5743.08
+      "total_load_w": 305,
+      "expected_revenue_rwf": 4993.8
     },
     {
       "hour": 10,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.1314,
+      "e_duration_min": 71.4,
+      "risk_level": "medium",
       "appliances_on": [
         "Electric Sewing Machine",
         "POS / Cash Register",
         "LED Lighting (main)",
-        "Ceiling Fan",
+        "Ceiling Fan"
+      ],
+      "appliances_off": [
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 625,
-      "expected_revenue_rwf": 5743.08
+      "total_load_w": 305,
+      "expected_revenue_rwf": 5037.88
     },
     {
       "hour": 11,
-      "p_outage": 0.0664,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.1114,
+      "e_duration_min": 71.9,
+      "risk_level": "medium",
       "appliances_on": [
         "Electric Sewing Machine",
         "POS / Cash Register",
         "LED Lighting (main)",
-        "Ceiling Fan",
+        "Ceiling Fan"
+      ],
+      "appliances_off": [
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 625,
-      "expected_revenue_rwf": 5881.68
+      "total_load_w": 305,
+      "expected_revenue_rwf": 5153.88
     },
     {
       "hour": 12,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0924,
+      "e_duration_min": 73.0,
       "risk_level": "low",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -379,12 +382,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 625,
-      "expected_revenue_rwf": 5743.08
+      "expected_revenue_rwf": 5717.88
     },
     {
       "hour": 13,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0802,
+      "e_duration_min": 74.8,
       "risk_level": "low",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -396,12 +399,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 625,
-      "expected_revenue_rwf": 5743.08
+      "expected_revenue_rwf": 5794.74
     },
     {
       "hour": 14,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0732,
+      "e_duration_min": 81.7,
       "risk_level": "low",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -413,12 +416,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 625,
-      "expected_revenue_rwf": 5743.08
+      "expected_revenue_rwf": 5838.84
     },
     {
       "hour": 15,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0726,
+      "e_duration_min": 81.5,
       "risk_level": "low",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -430,12 +433,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 625,
-      "expected_revenue_rwf": 5743.08
+      "expected_revenue_rwf": 5842.62
     },
     {
       "hour": 16,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0782,
+      "e_duration_min": 79.6,
       "risk_level": "low",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -447,12 +450,12 @@
       ],
       "appliances_off": [],
       "total_load_w": 625,
-      "expected_revenue_rwf": 5743.08
+      "expected_revenue_rwf": 5807.34
     },
     {
       "hour": 17,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0935,
+      "e_duration_min": 74.3,
       "risk_level": "low",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -464,97 +467,102 @@
       ],
       "appliances_off": [],
       "total_load_w": 625,
-      "expected_revenue_rwf": 5743.08
+      "expected_revenue_rwf": 5710.95
     },
     {
       "hour": 18,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.1226,
+      "e_duration_min": 72.7,
+      "risk_level": "medium",
       "appliances_on": [
         "Electric Sewing Machine",
         "POS / Cash Register",
         "LED Lighting (main)",
-        "Ceiling Fan",
+        "Ceiling Fan"
+      ],
+      "appliances_off": [
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 625,
-      "expected_revenue_rwf": 5743.08
+      "total_load_w": 305,
+      "expected_revenue_rwf": 5088.92
     },
     {
       "hour": 19,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.1519,
+      "e_duration_min": 72.5,
+      "risk_level": "medium",
       "appliances_on": [
         "Electric Sewing Machine",
         "POS / Cash Register",
         "LED Lighting (main)",
-        "Ceiling Fan",
+        "Ceiling Fan"
+      ],
+      "appliances_off": [
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 625,
-      "expected_revenue_rwf": 5743.08
+      "total_load_w": 305,
+      "expected_revenue_rwf": 4918.98
     },
     {
       "hour": 20,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.1626,
+      "e_duration_min": 72.7,
+      "risk_level": "medium",
       "appliances_on": [
         "Electric Sewing Machine",
         "POS / Cash Register",
         "LED Lighting (main)",
-        "Ceiling Fan",
+        "Ceiling Fan"
+      ],
+      "appliances_off": [
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 625,
-      "expected_revenue_rwf": 5743.08
+      "total_load_w": 305,
+      "expected_revenue_rwf": 4856.92
     },
     {
       "hour": 21,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.1419,
+      "e_duration_min": 74.7,
+      "risk_level": "medium",
       "appliances_on": [
         "Electric Sewing Machine",
         "POS / Cash Register",
         "LED Lighting (main)",
-        "Ceiling Fan",
+        "Ceiling Fan"
+      ],
+      "appliances_off": [
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 625,
-      "expected_revenue_rwf": 5743.08
+      "total_load_w": 305,
+      "expected_revenue_rwf": 4976.98
     },
     {
       "hour": 22,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
-      "risk_level": "low",
+      "p_outage": 0.1044,
+      "e_duration_min": 73.4,
+      "risk_level": "medium",
       "appliances_on": [
         "Electric Sewing Machine",
         "POS / Cash Register",
         "LED Lighting (main)",
-        "Ceiling Fan",
+        "Ceiling Fan"
+      ],
+      "appliances_off": [
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 625,
-      "expected_revenue_rwf": 5743.08
+      "total_load_w": 305,
+      "expected_revenue_rwf": 5194.48
     },
     {
       "hour": 23,
-      "p_outage": 0.0884,
-      "e_duration_min": 76.0,
+      "p_outage": 0.0776,
+      "e_duration_min": 74.6,
       "risk_level": "low",
       "appliances_on": [
         "Electric Sewing Machine",
@@ -566,13 +574,13 @@
       ],
       "appliances_off": [],
       "total_load_w": 625,
-      "expected_revenue_rwf": 5743.08
+      "expected_revenue_rwf": 5811.12
     }
   ],
-  "total_expected_revenue_rwf": 138336.7,
-  "total_naive_revenue_rwf": 138779.55,
-  "revenue_difference_rwf": -442.85,
-  "kwh_saved_by_shedding": 0.037,
+  "total_expected_revenue_rwf": 133016.9,
+  "total_naive_revenue_rwf": 136921.05,
+  "revenue_difference_rwf": -3904.15,
+  "kwh_saved_by_shedding": 0.381,
   "thresholds": {
     "low_risk": 0.1,
     "high_risk": 0.25

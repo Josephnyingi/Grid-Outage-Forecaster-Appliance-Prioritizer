@@ -23,8 +23,10 @@ import joblib
 import numpy as np
 import pandas as pd
 from sklearn.isotonic import IsotonicRegression
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import TimeSeriesSplit
-from sklearn.metrics import brier_score_loss
+from sklearn.metrics import brier_score_loss, roc_auc_score
 import lightgbm as lgb
 
 warnings.filterwarnings("ignore")
@@ -43,13 +45,21 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
     df["timestamp"] = pd.to_datetime(df["timestamp"])
     df = df.sort_values("timestamp").reset_index(drop=True)
 
-    df["hour"]        = df["timestamp"].dt.hour
-    df["dow"]         = df["timestamp"].dt.dayofweek
-    df["month"]       = df["timestamp"].dt.month
-    df["week_of_year"]= df["timestamp"].dt.isocalendar().week.astype(int)
-    df["is_weekend"]  = (df["dow"] >= 5).astype(int)
+    df["hour"]         = df["timestamp"].dt.hour
+    df["dow"]          = df["timestamp"].dt.dayofweek
+    df["month"]        = df["timestamp"].dt.month
+    df["week_of_year"] = df["timestamp"].dt.isocalendar().week.astype(int)
+    df["is_weekend"]   = (df["dow"] >= 5).astype(int)
     df["is_peak_morning"] = ((df["hour"] >= 7) & (df["hour"] <= 9)).astype(int)
     df["is_peak_evening"] = ((df["hour"] >= 18) & (df["hour"] <= 20)).astype(int)
+
+    # Cyclical encoding — smoother than raw integer, captures midnight wrap-around
+    df["hour_sin"] = np.sin(2 * np.pi * df["hour"] / 24)
+    df["hour_cos"] = np.cos(2 * np.pi * df["hour"] / 24)
+    df["dow_sin"]  = np.sin(2 * np.pi * df["dow"] / 7)
+    df["dow_cos"]  = np.cos(2 * np.pi * df["dow"] / 7)
+    df["month_sin"]= np.sin(2 * np.pi * df["month"] / 12)
+    df["month_cos"]= np.cos(2 * np.pi * df["month"] / 12)
 
     # Lag features (load)
     for lag in [1, 2, 3, 6, 12, 24, 48]:
@@ -63,7 +73,8 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
     # Lag features (rain)
     for lag in [1, 2, 3]:
         df[f"rain_lag{lag}"] = df["rain_mm"].shift(lag)
-    df["rain_roll_sum_6h"] = df["rain_mm"].shift(1).rolling(6).sum()
+    df["rain_roll_sum_6h"]  = df["rain_mm"].shift(1).rolling(6).sum()
+    df["rain_roll_sum_24h"] = df["rain_mm"].shift(1).rolling(24).sum()
 
     # Lag outage
     for lag in [1, 2, 24]:
@@ -73,25 +84,39 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
     df["temp_roll_mean_6h"]     = df["temp_c"].shift(1).rolling(6).mean()
     df["humidity_roll_mean_6h"] = df["humidity"].shift(1).rolling(6).mean()
 
-    # Hour interaction
-    df["load_x_hour"]  = df["load_mw"] * df["hour"]
-    df["rain_x_hour"]  = df["rain_mm"] * df["hour"]
+    # Explicit DGP interaction terms — rain × load is the key cross-feature in the spec formula
+    df["rain_x_load_lag1"] = df["rain_mm"] * df["load_lag1"]
+    df["rain_x_hour_sin"]  = df["rain_mm"] * df["hour_sin"]
+    df["load_lag1_x_hour_sin"] = df["load_lag1"] * df["hour_sin"]
+
+    # Classic interaction
+    df["load_x_hour"] = df["load_mw"] * df["hour"]
+    df["rain_x_hour"] = df["rain_mm"] * df["hour"]
 
     return df
 
 
 FEATURE_COLS = [
+    # Temporal
     "hour", "dow", "month", "week_of_year", "is_weekend",
     "is_peak_morning", "is_peak_evening",
+    # Cyclical encodings
+    "hour_sin", "hour_cos", "dow_sin", "dow_cos", "month_sin", "month_cos",
+    # Load
     "load_mw", "load_lag1", "load_lag2", "load_lag3",
     "load_lag6", "load_lag12", "load_lag24", "load_lag48",
     "load_roll_mean_3h", "load_roll_mean_6h", "load_roll_mean_12h", "load_roll_mean_24h",
     "load_roll_std_3h", "load_roll_std_6h",
+    # Weather
     "temp_c", "temp_roll_mean_6h",
     "humidity", "humidity_roll_mean_6h",
-    "wind_ms", "rain_mm", "rain_lag1", "rain_lag2", "rain_lag3",
-    "rain_roll_sum_6h",
+    "wind_ms",
+    "rain_mm", "rain_lag1", "rain_lag2", "rain_lag3",
+    "rain_roll_sum_6h", "rain_roll_sum_24h",
+    # Outage history
     "outage_lag1", "outage_lag2", "outage_lag24",
+    # Interaction terms (match DGP structure)
+    "rain_x_load_lag1", "rain_x_hour_sin", "load_lag1_x_hour_sin",
     "load_x_hour", "rain_x_hour",
 ]
 
@@ -106,83 +131,120 @@ def train(csv_path: str = "data/grid_history.csv") -> None:
 
     X = df[FEATURE_COLS].values
     y_cls = df["outage"].values.astype(int)
-    # Only use rows with actual outages for duration regression
-    mask_out = y_cls == 1
     y_dur = df["duration_min"].values
 
-    # Time-based split: train on first 150 days, hold-out last 30
+    # Time split: train on all except last 30 days; eval on last 30 days
     total_hours = len(df)
-    split_idx = int(total_hours * (150 / 180))
+    eval_start  = total_hours - 30 * 24
 
-    X_train, X_val = X[:split_idx], X[split_idx:]
-    y_train, y_val = y_cls[:split_idx], y_cls[split_idx:]
+    X_train_full = X[:eval_start];  y_train_full = y_cls[:eval_start]
+    X_val        = X[eval_start:];  y_val        = y_cls[eval_start:]
+    y_dur_val    = y_dur[eval_start:]
 
-    print(f"Train size: {split_idx:,}  |  Val size: {len(X_val):,}")
-    print(f"Train outage rate: {y_train.mean():.3f}  |  Val outage rate: {y_val.mean():.3f}")
+    print(f"Train: {len(X_train_full):,}h  |  Eval: {len(X_val):,}h")
+    print(f"Outage rates — train: {y_train_full.mean():.3f}  eval: {y_val.mean():.3f}")
 
-    # ── Classifier ────────────────────────────────────────────────────────────
-    print("\nTraining outage classifier (LightGBM)...")
-    t0 = time.time()
-    clf = lgb.LGBMClassifier(
-        n_estimators=400,
-        learning_rate=0.05,
+    # ── LightGBM params (used for OOF + final) ────────────────────────────────
+    lgb_params = dict(
+        n_estimators=800,
+        learning_rate=0.02,
         num_leaves=31,
-        max_depth=6,
-        min_child_samples=30,
-        subsample=0.8,
-        colsample_bytree=0.8,
-        scale_pos_weight=(1 - y_train.mean()) / y_train.mean(),
+        max_depth=5,
+        min_child_samples=50,
+        subsample=0.75,
+        colsample_bytree=0.7,
+        reg_alpha=0.1,
+        reg_lambda=1.0,
+        scale_pos_weight=(1 - y_train_full.mean()) / y_train_full.mean(),
         random_state=42,
         n_jobs=-1,
         verbose=-1,
     )
-    clf.fit(
-        X_train, y_train,
-        eval_set=[(X_val, y_val)],
-        callbacks=[lgb.early_stopping(50, verbose=False), lgb.log_evaluation(-1)],
-    )
 
-    # Calibrate probabilities with isotonic regression on validation set
-    raw_val_proba = clf.predict_proba(X_val)[:, 1]
-    iso = IsotonicRegression(out_of_bounds="clip")
-    iso.fit(raw_val_proba, y_val)
-    joblib.dump(iso, MODEL_DIR / "isotonic_calibrator.pkl")
+    # ── OOF calibration via 5-fold TimeSeriesSplit ────────────────────────────
+    print("\nGenerating OOF predictions (5-fold TimeSeries CV) for calibration...")
+    t0 = time.time()
+    tscv = TimeSeriesSplit(n_splits=5, gap=24)
+    oof_lgb  = np.full(len(X_train_full), np.nan)
 
-    p_val = iso.transform(raw_val_proba)
-    bs = brier_score_loss(y_val, p_val)
-    print(f"  Training time: {time.time()-t0:.1f}s")
-    print(f"  Brier score (val, 30d hold-out): {bs:.4f}  (lower is better; naive=0.04)")
+    for tr_idx, val_idx in tscv.split(X_train_full):
+        fold_clf = lgb.LGBMClassifier(**lgb_params)
+        fold_clf.fit(X_train_full[tr_idx], y_train_full[tr_idx],
+                     callbacks=[lgb.log_evaluation(-1)])
+        oof_lgb[val_idx] = fold_clf.predict_proba(X_train_full[val_idx])[:, 1]
 
-    joblib.dump(clf, MODEL_DIR / "outage_classifier.pkl")
-    print(f"  Saved → {MODEL_DIR}/outage_classifier.pkl")
+    oof_mask = ~np.isnan(oof_lgb)
+    print(f"  OOF coverage: {oof_mask.sum():,}h  ({time.time()-t0:.1f}s)")
+
+    # ── Logistic Regression on OOF + key DGP features ─────────────────────────
+    # Since the DGP is P=sigmoid(...), a LR will recover the sigmoid coefficients
+    # better than isotonic alone, producing a tighter Brier score.
+    key_cols = ["load_lag1", "rain_mm", "hour_sin", "hour_cos",
+                "rain_x_load_lag1", "rain_roll_sum_6h", "load_roll_mean_6h"]
+    key_idx  = [FEATURE_COLS.index(c) for c in key_cols]
+
+    X_oof_meta = np.column_stack([oof_lgb[oof_mask], X_train_full[oof_mask][:, key_idx]])
+    scaler = StandardScaler()
+    X_oof_s = scaler.fit_transform(X_oof_meta)
+
+    iso = LogisticRegression(C=0.5, max_iter=500, random_state=42)
+    iso.fit(X_oof_s, y_train_full[oof_mask])
+
+    # ── Final LightGBM trained on ALL training data ────────────────────────────
+    print("Training final LightGBM on full training set...")
+    t0 = time.time()
+    clf = lgb.LGBMClassifier(**lgb_params)
+    clf.fit(X_train_full, y_train_full, callbacks=[lgb.log_evaluation(-1)])
+    print(f"  Training: {time.time()-t0:.1f}s")
+
+    # Evaluate on held-out 30-day window
+    p_val    = _predict_proba_stacked(clf, iso, scaler, key_idx, X_val)
+    bs       = brier_score_loss(y_val, p_val)
+    bs_naive = brier_score_loss(y_val, np.full_like(p_val, y_val.mean()))
+    bss      = 1 - bs / bs_naive
+    auc      = roc_auc_score(y_val, p_val)
+    print(f"  Brier Score   : {bs:.5f}  (naive: {bs_naive:.5f})")
+    print(f"  Brier Skill   : {bss:.4f}  (positive = beats naive)")
+    print(f"  ROC-AUC       : {auc:.4f}")
+
+    joblib.dump(clf,     MODEL_DIR / "outage_classifier.pkl")
+    joblib.dump(iso,     MODEL_DIR / "isotonic_calibrator.pkl")
+    joblib.dump(scaler,  MODEL_DIR / "meta_scaler.pkl")
+    joblib.dump(key_idx, MODEL_DIR / "meta_key_idx.pkl")
+    print(f"  Saved models → {MODEL_DIR}/")
 
     # ── Duration regressor ────────────────────────────────────────────────────
     print("\nTraining duration regressor (LightGBM)...")
     t0 = time.time()
-    mask_train = (y_train == 1)
-    mask_val_d = (y_val == 1)
+    y_dur_train  = y_dur[:eval_start]
+    mask_train_d = (y_train_full == 1)
+    mask_val_d   = (y_val == 1)
 
+    # Quantile regression at q=0.50 (median) — MAE-optimal for log-normal durations
     reg = lgb.LGBMRegressor(
-        n_estimators=300,
-        learning_rate=0.05,
+        objective="quantile",
+        alpha=0.50,
+        n_estimators=500,
+        learning_rate=0.02,
         num_leaves=15,
         max_depth=4,
         subsample=0.8,
         colsample_bytree=0.8,
+        reg_alpha=0.05,
         random_state=42,
         n_jobs=-1,
         verbose=-1,
     )
     reg.fit(
-        X_train[mask_train], np.log1p(y_dur[:split_idx][mask_train]),
-        eval_set=[(X_val[mask_val_d], np.log1p(y_dur[split_idx:][mask_val_d]))],
-        callbacks=[lgb.early_stopping(50, verbose=False), lgb.log_evaluation(-1)],
+        X_train_full[mask_train_d], y_dur_train[mask_train_d],
+        eval_set=[(X_val[mask_val_d], y_dur_val[mask_val_d])],
+        callbacks=[lgb.early_stopping(60, verbose=False), lgb.log_evaluation(-1)],
     )
 
-    dur_preds = np.expm1(reg.predict(X_val[mask_val_d]))
-    mae_dur = np.mean(np.abs(dur_preds - y_dur[split_idx:][mask_val_d]))
-    print(f"  Training time: {time.time()-t0:.1f}s")
-    print(f"  Duration MAE (val, outage hours only): {mae_dur:.1f} min")
+    dur_preds = reg.predict(X_val[mask_val_d])
+    mae_dur   = np.mean(np.abs(dur_preds - y_dur_val[mask_val_d]))
+    naive_mae = np.mean(np.abs(y_dur_train[mask_train_d].mean() - y_dur_val[mask_val_d]))
+    print(f"  Duration MAE  (our model): {mae_dur:.1f} min")
 
     joblib.dump(reg, MODEL_DIR / "duration_regressor.pkl")
     print(f"  Saved → {MODEL_DIR}/duration_regressor.pkl")
@@ -197,10 +259,18 @@ def train(csv_path: str = "data/grid_history.csv") -> None:
 # ── Inference ──────────────────────────────────────────────────────────────────
 
 def load_models():
-    clf = joblib.load(MODEL_DIR / "outage_classifier.pkl")
-    reg = joblib.load(MODEL_DIR / "duration_regressor.pkl")
-    iso = joblib.load(MODEL_DIR / "isotonic_calibrator.pkl")
-    return clf, reg, iso
+    clf     = joblib.load(MODEL_DIR / "outage_classifier.pkl")
+    reg     = joblib.load(MODEL_DIR / "duration_regressor.pkl")
+    meta    = joblib.load(MODEL_DIR / "isotonic_calibrator.pkl")   # LogisticRegression
+    scaler  = joblib.load(MODEL_DIR / "meta_scaler.pkl")
+    key_idx = joblib.load(MODEL_DIR / "meta_key_idx.pkl")
+    return clf, reg, meta, scaler, key_idx
+
+
+def _predict_proba_stacked(clf, meta, scaler, key_idx, X: np.ndarray) -> np.ndarray:
+    raw    = clf.predict_proba(X)[:, 1]
+    X_meta = np.column_stack([raw, X[:, key_idx]])
+    return meta.predict_proba(scaler.transform(X_meta))[:, 1]
 
 
 def forecast(
@@ -213,7 +283,7 @@ def forecast(
     Returns DataFrame with columns: hour, p_outage, e_duration, lower_80, upper_80.
     """
     t0 = time.time()
-    clf, reg, iso = load_models()
+    clf, reg, meta, scaler, key_idx = load_models()
 
     df = build_features(history_df)
     df = df.dropna(subset=FEATURE_COLS).reset_index(drop=True)
@@ -261,13 +331,21 @@ def forecast(
         row["load_roll_mean_6h"] = float(
             hour_profiles.loc[[i % 24 for i in range(h - 5, h + 1)]]["load_mw"].mean()
         )
-        row["load_x_hour"] = row["load_mw"] * h
-        row["rain_x_hour"] = row["rain_mm"] * h
+        row["hour_sin"] = float(np.sin(2 * np.pi * h / 24))
+        row["hour_cos"] = float(np.cos(2 * np.pi * h / 24))
+        row["dow_sin"]  = float(np.sin(2 * np.pi * ts.dayofweek / 7))
+        row["dow_cos"]  = float(np.cos(2 * np.pi * ts.dayofweek / 7))
+        row["month_sin"]= float(np.sin(2 * np.pi * ts.month / 12))
+        row["month_cos"]= float(np.cos(2 * np.pi * ts.month / 12))
+        row["load_x_hour"]        = row["load_mw"]  * h
+        row["rain_x_hour"]        = row["rain_mm"]  * h
+        row["rain_x_load_lag1"]   = row["rain_mm"]  * row["load_lag1"]
+        row["rain_x_hour_sin"]    = row["rain_mm"]  * row["hour_sin"]
+        row["load_lag1_x_hour_sin"] = row["load_lag1"] * row["hour_sin"]
 
         X_row = np.array([[row[c] for c in FEATURE_COLS]])
-        raw_p = float(clf.predict_proba(X_row)[0, 1])
-        p_out = float(iso.transform([raw_p])[0])
-        e_dur = float(np.expm1(reg.predict(X_row)[0]))
+        p_out = float(_predict_proba_stacked(clf, meta, scaler, key_idx, X_row)[0])
+        e_dur = float(max(reg.predict(X_row)[0], 0))
 
         # 80% prediction interval via bootstrapped uncertainty
         noise = np.random.normal(0, 0.02, 50)
@@ -306,17 +384,16 @@ def rolling_eval(
     df = build_features(df_raw)
     df = df.dropna(subset=FEATURE_COLS).reset_index(drop=True)
 
-    clf, reg, iso = load_models()
+    clf, reg, meta, scaler, key_idx = load_models()
 
     total = len(df)
     eval_start = total - eval_days * 24
-    X_eval = df[FEATURE_COLS].values[eval_start:]
-    y_eval = df["outage"].values[eval_start:]
+    X_eval   = df[FEATURE_COLS].values[eval_start:]
+    y_eval   = df["outage"].values[eval_start:]
     dur_eval = df["duration_min"].values[eval_start:]
 
-    raw_pred = clf.predict_proba(X_eval)[:, 1]
-    p_pred = iso.transform(raw_pred)
-    dur_pred = np.expm1(reg.predict(X_eval))
+    p_pred   = _predict_proba_stacked(clf, meta, scaler, key_idx, X_eval)
+    dur_pred = np.clip(reg.predict(X_eval), 0, None)
 
     bs = brier_score_loss(y_eval, p_pred)
 
