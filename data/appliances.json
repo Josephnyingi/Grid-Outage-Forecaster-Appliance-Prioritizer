@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Hair Dryer",
+    "category": "critical",
+    "watts_avg": 1800,
+    "start_up_spike_w": 2200,
+    "revenue_if_running_rwf_per_h": 6000
+  },
+  {
+    "name": "Refrigeration Compressor",
+    "category": "critical",
+    "watts_avg": 1500,
+    "start_up_spike_w": 3500,
+    "revenue_if_running_rwf_per_h": 12000
+  },
+  {
+    "name": "Electric Sewing Machine",
+    "category": "critical",
+    "watts_avg": 100,
+    "start_up_spike_w": 200,
+    "revenue_if_running_rwf_per_h": 3500
+  },
+  {
+    "name": "POS / Cash Register",
+    "category": "critical",
+    "watts_avg": 50,
+    "start_up_spike_w": 60,
+    "revenue_if_running_rwf_per_h": 1000
+  },
+  {
+    "name": "Ceiling Fan",
+    "category": "comfort",
+    "watts_avg": 75,
+    "start_up_spike_w": 90,
+    "revenue_if_running_rwf_per_h": 500
+  },
+  {
+    "name": "LED Lighting (main)",
+    "category": "comfort",
+    "watts_avg": 80,
+    "start_up_spike_w": 85,
+    "revenue_if_running_rwf_per_h": 800
+  },
+  {
+    "name": "Water Pump",
+    "category": "comfort",
+    "watts_avg": 500,
+    "start_up_spike_w": 900,
+    "revenue_if_running_rwf_per_h": 700
+  },
+  {
+    "name": "Television",
+    "category": "luxury",
+    "watts_avg": 120,
+    "start_up_spike_w": 130,
+    "revenue_if_running_rwf_per_h": 200
+  },
+  {
+    "name": "Sound System",
+    "category": "luxury",
+    "watts_avg": 200,
+    "start_up_spike_w": 250,
+    "revenue_if_running_rwf_per_h": 300
+  },
+  {
+    "name": "Decorative Lighting",
+    "category": "luxury",
+    "watts_avg": 60,
+    "start_up_spike_w": 65,
+    "revenue_if_running_rwf_per_h": 100
+  }
+]

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grid Outage Forecaster — Keza Beauty Salon</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root{--red:#e74c3c;--orange:#f39c12;--green:#27ae60;--blue:#2980b9;--dark:#2c3e50;--light:#ecf0f1}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',sans-serif;background:#f5f6fa;color:var(--dark);font-size:14px}
+  header{background:var(--dark);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+  header h1{font-size:18px;font-weight:700}
+  header .meta{font-size:12px;opacity:.75}
+  .badge{display:inline-block;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:700;text-transform:uppercase}
+  .badge-low{background:#d5f5e3;color:#1e8449}
+  .badge-medium{background:#fdebd0;color:#a04000}
+  .badge-high{background:#fadbd8;color:#922b21}
+  .container{max-width:1100px;margin:20px auto;padding:0 16px}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .card{background:#fff;border-radius:8px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.1)}
+  .card h2{font-size:14px;font-weight:700;text-transform:uppercase;color:#7f8c8d;margin-bottom:12px;letter-spacing:.5px}
+  .kpi-row{display:flex;gap:12px;margin-bottom:16px}
+  .kpi{flex:1;background:var(--light);border-radius:6px;padding:10px 12px;text-align:center}
+  .kpi .val{font-size:24px;font-weight:700;color:var(--dark)}
+  .kpi .lbl{font-size:11px;color:#7f8c8d;margin-top:2px}
+  canvas{max-height:260px}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  thead tr{background:var(--dark);color:#fff}
+  th,td{padding:6px 8px;text-align:left}
+  tbody tr:nth-child(even){background:#f8f9fa}
+  tbody tr.risk-medium{background:#fef9e7}
+  tbody tr.risk-high{background:#fdedec}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
+  .dot-on{background:var(--green)}
+  .dot-off{background:var(--red)}
+  .sms-box{background:#2c3e50;color:#ecf0f1;border-radius:6px;padding:12px;font-family:monospace;font-size:12px;line-height:1.6}
+  .sms-box .sms-label{color:#f39c12;font-weight:700;margin-bottom:4px}
+  footer{text-align:center;color:#aaa;font-size:11px;padding:20px;margin-top:10px}
+  @media(max-width:700px){.grid-2{grid-template-columns:1fr}.kpi .val{font-size:18px}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚡ Grid Outage Forecaster + Appliance Prioritizer</h1>
+  <div class="meta">Keza Beauty Salon · Kigali, Rwanda · <span id="today-date"></span></div>
+</header>
+
+<div class="container">
+
+  <!-- KPI row -->
+  <div class="kpi-row" style="margin-top:16px">
+    <div class="kpi">
+      <div class="val" id="kpi-brier">0.0700</div>
+      <div class="lbl">Brier Score (30d hold-out)</div>
+    </div>
+    <div class="kpi">
+      <div class="val" id="kpi-peak">08h</div>
+      <div class="lbl">Peak Risk Hour</div>
+    </div>
+    <div class="kpi">
+      <div class="val" id="kpi-dur">76 min</div>
+      <div class="lbl">Avg Expected Duration</div>
+    </div>
+    <div class="kpi">
+      <div class="val" id="kpi-rev" style="color:var(--green)">195,522</div>
+      <div class="lbl">Expected Revenue 24h (RWF)</div>
+    </div>
+  </div>
+
+  <!-- Charts row -->
+  <div class="grid-2">
+    <div class="card">
+      <h2>24-Hour Outage Probability Forecast</h2>
+      <canvas id="chart-forecast"></canvas>
+    </div>
+    <div class="card">
+      <h2>Appliance Load Plan — Salon</h2>
+      <canvas id="chart-plan"></canvas>
+    </div>
+  </div>
+
+  <div style="height:16px"></div>
+
+  <!-- Hourly plan table -->
+  <div class="card">
+    <h2>Hourly Schedule</h2>
+    <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Hour</th><th>Risk</th><th>P(out)</th><th>E[dur]</th>
+            <th>Hair Dryer</th><th>POS</th><th>Lighting</th><th>Fan</th>
+            <th>TV</th><th>Sound</th><th>Decor</th>
+          </tr>
+        </thead>
+        <tbody id="plan-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="height:16px"></div>
+
+  <!-- SMS digest -->
+  <div class="grid-2">
+    <div class="card">
+      <h2>Morning SMS Digest (Feature Phone)</h2>
+      <div class="sms-box">
+        <div class="sms-label">SMS 1/3</div>
+        <div id="sms1"></div>
+        <br>
+        <div class="sms-label">SMS 2/3</div>
+        <div id="sms2"></div>
+        <br>
+        <div class="sms-label">SMS 3/3</div>
+        <div id="sms3"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Offline Resilience</h2>
+      <p style="line-height:1.7;color:#555;font-size:13px">
+        <strong>If internet drops at 13:00:</strong><br>
+        The device shows the last cached plan with a <span style="color:var(--orange)">⚠ STALE</span> indicator.
+        The plan remains trusted for up to <strong>4 hours</strong> (staleness budget = 4h).
+        After 4h, the display switches to <strong>SAFE MODE</strong>: all appliances except
+        <em>critical</em> are shown as OFF and the owner receives an SMS alert.
+        <br><br>
+        <strong>Accessibility (illiterate users):</strong><br>
+        The UI maps risk level to LED colours on a relay board —
+        <span style="color:var(--green)">● GREEN</span> = all appliances safe,
+        <span style="color:var(--orange)">● AMBER</span> = shed luxury,
+        <span style="color:var(--red)">● RED</span> = critical only.
+        No reading required.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<footer>T2.3 Grid Outage Forecaster + Appliance Prioritizer · AIMS KTT Hackathon · LightGBM + Isotonic Calibration</footer>
+
+<script>
+// ── Embedded forecast data ──────────────────────────────────────────────────
+const FORECAST = [
+  {h:0,  p:0.0664, lo:0.037, hi:0.084, dur:76},
+  {h:1,  p:0.0664, lo:0.029, hi:0.086, dur:76},
+  {h:2,  p:0.0664, lo:0.038, hi:0.085, dur:76},
+  {h:3,  p:0.0664, lo:0.036, hi:0.086, dur:76},
+  {h:4,  p:0.0664, lo:0.048, hi:0.085, dur:76},
+  {h:5,  p:0.0664, lo:0.040, hi:0.092, dur:76},
+  {h:6,  p:0.0664, lo:0.042, hi:0.093, dur:76},
+  {h:7,  p:0.0884, lo:0.061, hi:0.116, dur:76},
+  {h:8,  p:0.1143, lo:0.088, hi:0.130, dur:76},
+  {h:9,  p:0.0884, lo:0.064, hi:0.109, dur:76},
+  {h:10, p:0.0884, lo:0.066, hi:0.108, dur:76},
+  {h:11, p:0.0664, lo:0.035, hi:0.088, dur:76},
+  {h:12, p:0.0884, lo:0.065, hi:0.116, dur:76},
+  {h:13, p:0.0884, lo:0.065, hi:0.107, dur:76},
+  {h:14, p:0.0884, lo:0.066, hi:0.102, dur:76},
+  {h:15, p:0.0884, lo:0.066, hi:0.113, dur:76},
+  {h:16, p:0.0884, lo:0.063, hi:0.109, dur:76},
+  {h:17, p:0.0884, lo:0.061, hi:0.113, dur:76},
+  {h:18, p:0.0884, lo:0.063, hi:0.111, dur:76},
+  {h:19, p:0.0884, lo:0.056, hi:0.114, dur:76},
+  {h:20, p:0.0884, lo:0.067, hi:0.113, dur:76},
+  {h:21, p:0.0884, lo:0.063, hi:0.109, dur:76},
+  {h:22, p:0.0884, lo:0.061, hi:0.123, dur:76},
+  {h:23, p:0.0884, lo:0.065, hi:0.112, dur:76}
+];
+
+const PLAN = [
+  {h:0,  risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:1,  risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:2,  risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:3,  risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:4,  risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:5,  risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:6,  risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:7,  risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:8,  risk:'medium', apps:['ON','ON','ON','ON','OFF','OFF','OFF']},
+  {h:9,  risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:10, risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:11, risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:12, risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:13, risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:14, risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:15, risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:16, risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:17, risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:18, risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:19, risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:20, risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:21, risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:22, risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']},
+  {h:23, risk:'low',    apps:['ON','ON','ON','ON','ON','ON','ON']}
+];
+
+const LABELS = ['Hair Dryer','POS','Lighting','Fan','TV','Sound','Decor'];
+
+// ── Today date ─────────────────────────────────────────────────────────────
+document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+
+// ── KPIs ───────────────────────────────────────────────────────────────────
+const peakHour = FORECAST.reduce((a,b)=>a.p>b.p?a:b);
+document.getElementById('kpi-peak').textContent = String(peakHour.h).padStart(2,'0')+'h';
+document.getElementById('kpi-dur').textContent = Math.round(FORECAST.reduce((s,r)=>s+r.dur,0)/24)+' min';
+
+// ── Chart 1: Forecast band ─────────────────────────────────────────────────
+const hours = FORECAST.map(r=>r.h+'h');
+new Chart(document.getElementById('chart-forecast'),{
+  type:'line',
+  data:{
+    labels:hours,
+    datasets:[
+      {label:'Upper 80%',data:FORECAST.map(r=>r.hi),fill:false,borderColor:'transparent',pointRadius:0,tension:.3},
+      {label:'Lower 80%',data:FORECAST.map(r=>r.lo),fill:'-1',backgroundColor:'rgba(231,76,60,.15)',borderColor:'transparent',pointRadius:0,tension:.3},
+      {label:'P(outage)',data:FORECAST.map(r=>r.p),borderColor:'#e74c3c',backgroundColor:'rgba(231,76,60,.25)',fill:true,pointRadius:3,tension:.3,borderWidth:2},
+      {label:'Medium (10%)',data:Array(24).fill(.10),borderColor:'#f39c12',borderDash:[4,4],borderWidth:1,pointRadius:0},
+      {label:'High (25%)',data:Array(24).fill(.25),borderColor:'#922b21',borderDash:[4,4],borderWidth:1,pointRadius:0},
+    ]
+  },
+  options:{plugins:{legend:{display:false},tooltip:{mode:'index'}},scales:{y:{min:0,max:.4,ticks:{callback:v=>(v*100).toFixed(0)+'%'}}}}
+});
+
+// ── Chart 2: Plan heatmap (stacked bar by appliance) ───────────────────────
+const palette=['#1a5276','#2980b9','#27ae60','#f39c12','#e74c3c','#8e44ad','#17a589'];
+new Chart(document.getElementById('chart-plan'),{
+  type:'bar',
+  data:{
+    labels:hours,
+    datasets:LABELS.map((lbl,i)=>({
+      label:lbl,
+      data:PLAN.map(r=>r.apps[i]==='ON'?1:0),
+      backgroundColor:palette[i],
+      borderWidth:0,
+    }))
+  },
+  options:{
+    plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}},
+    scales:{x:{stacked:true},y:{stacked:true,max:7,ticks:{display:false},title:{display:true,text:'Appliances ON'}}},
+    barPercentage:.9,categoryPercentage:.95
+  }
+});
+
+// ── Plan table ─────────────────────────────────────────────────────────────
+const tbody = document.getElementById('plan-table-body');
+PLAN.forEach((row,i)=>{
+  const fc = FORECAST[i];
+  const tr = document.createElement('tr');
+  tr.className = row.risk!=='low'?`risk-${row.risk}`:'';
+  const cells = [
+    String(row.h).padStart(2,'0')+'h',
+    `<span class="badge badge-${row.risk}">${row.risk}</span>`,
+    (fc.p*100).toFixed(1)+'%',
+    fc.dur+'m',
+    ...row.apps.map(s=>`<span class="dot dot-${s.toLowerCase()}"></span>${s}`)
+  ];
+  tr.innerHTML = cells.map(c=>`<td>${c}</td>`).join('');
+  tbody.appendChild(tr);
+});
+
+// ── SMS digest ─────────────────────────────────────────────────────────────
+const d = new Date(); const ds=d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
+const peakP=(peakHour.p*100).toFixed(0);
+document.getElementById('sms1').textContent=
+  `KEZA SALON ${ds}: Grid risk LOW today. Peak risk 08h (${peakP}%). Expected rev: 195,522 RWF.`;
+document.getElementById('sms2').textContent=
+  `08h ACTION: Turn OFF TV+Sound+Decor light. Keep Dryer+Fan+LED+POS ON. Risk clears by 09h.`;
+document.getElementById('sms3').textContent=
+  `If power cuts: est. 76min outage. Priority: Hair dryer 1st when restored. Reply HELP for support.`;
+</script>
+</body>
+</html>

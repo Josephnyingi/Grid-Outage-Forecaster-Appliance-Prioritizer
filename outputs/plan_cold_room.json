@@ -1,0 +1,580 @@
+{
+  "business_type": "cold_room",
+  "schedule": {
+    "POS / Cash Register": [
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON"
+    ],
+    "Refrigeration Compressor": [
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON"
+    ],
+    "LED Lighting (main)": [
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON"
+    ],
+    "Water Pump": [
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON"
+    ],
+    "Decorative Lighting": [
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "OFF",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON"
+    ],
+    "Television": [
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "OFF",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON",
+      "ON"
+    ]
+  },
+  "hourly_summary": [
+    {
+      "hour": 0,
+      "p_outage": 0.0664,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13817.28
+    },
+    {
+      "hour": 1,
+      "p_outage": 0.0664,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13817.28
+    },
+    {
+      "hour": 2,
+      "p_outage": 0.0664,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13817.28
+    },
+    {
+      "hour": 3,
+      "p_outage": 0.0664,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13817.28
+    },
+    {
+      "hour": 4,
+      "p_outage": 0.0664,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13817.28
+    },
+    {
+      "hour": 5,
+      "p_outage": 0.0664,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13817.28
+    },
+    {
+      "hour": 6,
+      "p_outage": 0.0664,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13817.28
+    },
+    {
+      "hour": 7,
+      "p_outage": 0.0884,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13491.68
+    },
+    {
+      "hour": 8,
+      "p_outage": 0.1143,
+      "e_duration_min": 76.0,
+      "risk_level": "medium",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump"
+      ],
+      "appliances_off": [
+        "Decorative Lighting",
+        "Television"
+      ],
+      "total_load_w": 2130,
+      "expected_revenue_rwf": 12842.65
+    },
+    {
+      "hour": 9,
+      "p_outage": 0.0884,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13491.68
+    },
+    {
+      "hour": 10,
+      "p_outage": 0.0884,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13491.68
+    },
+    {
+      "hour": 11,
+      "p_outage": 0.0664,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13817.28
+    },
+    {
+      "hour": 12,
+      "p_outage": 0.0884,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13491.68
+    },
+    {
+      "hour": 13,
+      "p_outage": 0.0884,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13491.68
+    },
+    {
+      "hour": 14,
+      "p_outage": 0.0884,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13491.68
+    },
+    {
+      "hour": 15,
+      "p_outage": 0.0884,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13491.68
+    },
+    {
+      "hour": 16,
+      "p_outage": 0.0884,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13491.68
+    },
+    {
+      "hour": 17,
+      "p_outage": 0.0884,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13491.68
+    },
+    {
+      "hour": 18,
+      "p_outage": 0.0884,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13491.68
+    },
+    {
+      "hour": 19,
+      "p_outage": 0.0884,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13491.68
+    },
+    {
+      "hour": 20,
+      "p_outage": 0.0884,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13491.68
+    },
+    {
+      "hour": 21,
+      "p_outage": 0.0884,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13491.68
+    },
+    {
+      "hour": 22,
+      "p_outage": 0.0884,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13491.68
+    },
+    {
+      "hour": 23,
+      "p_outage": 0.0884,
+      "e_duration_min": 76.0,
+      "risk_level": "low",
+      "appliances_on": [
+        "POS / Cash Register",
+        "Refrigeration Compressor",
+        "LED Lighting (main)",
+        "Water Pump",
+        "Decorative Lighting",
+        "Television"
+      ],
+      "appliances_off": [],
+      "total_load_w": 2310,
+      "expected_revenue_rwf": 13491.68
+    }
+  ],
+  "total_expected_revenue_rwf": 325756.09,
+  "total_naive_revenue_rwf": 326021.8,
+  "revenue_difference_rwf": -265.71,
+  "kwh_saved_by_shedding": 0.021,
+  "thresholds": {
+    "low_risk": 0.1,
+    "high_risk": 0.25
+  }
+}
