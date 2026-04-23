@@ -40,6 +40,7 @@ def plan(
     business_type: str = "salon",
     low_risk: float = LOW_RISK,
     high_risk: float = HIGH_RISK,
+    neighbor_alerts: int = 0,
 ) -> dict:
     """
     Core planning function — explained on-screen during live defence.
@@ -47,6 +48,11 @@ def plan(
     Enforces 'critical before luxury' rule by sorting appliances by category
     priority, then within each tier by revenue-per-watt (keep highest earners on).
     Ties are broken by watts_avg ascending (prefer low-draw appliances).
+
+    neighbor_alerts: number of nearby businesses (≤500m) that reported a live
+    outage in the last 30 minutes. If ≥ 2, every hour is forced to HIGH RISK
+    regardless of the model's p_outage — capturing fault propagation that
+    load/weather features cannot see.
 
     Returns:
         {
@@ -57,6 +63,10 @@ def plan(
           "savings_vs_naive_rwf": float,
         }
     """
+    neighbor_override = neighbor_alerts >= 2
+    if neighbor_override:
+        print(f"  ⚡ NEIGHBOR OVERRIDE: {neighbor_alerts} nearby outages reported — "
+              f"forcing all hours to HIGH RISK.")
     # Sort appliances: critical first, then by revenue/watt desc, then watts asc
     sorted_apps = sorted(
         appliances,
@@ -75,7 +85,9 @@ def plan(
         p_out    = float(row["p_outage"])
         e_dur    = float(row["e_duration"])
 
-        if p_out < low_risk:
+        if neighbor_override:
+            risk_level = "high"
+        elif p_out < low_risk:
             risk_level = "low"
         elif p_out < high_risk:
             risk_level = "medium"
@@ -113,6 +125,7 @@ def plan(
             "p_outage": round(p_out, 4),
             "e_duration_min": round(e_dur, 1),
             "risk_level": risk_level,
+            "neighbor_override": neighbor_override,
             "appliances_on": hour_on,
             "appliances_off": hour_off,
             "total_load_w": total_w,
@@ -149,6 +162,8 @@ def plan(
         "revenue_difference_rwf": round(total_expected - total_naive, 2),
         "kwh_saved_by_shedding": round(protected, 3),
         "thresholds": {"low_risk": low_risk, "high_risk": high_risk},
+        "neighbor_override_active": neighbor_override,
+        "neighbor_alerts_received": neighbor_alerts,
     }
 
     out_path = OUT_DIR / f"plan_{business_type}.json"
@@ -179,14 +194,15 @@ def print_plan_table(plan_result: dict) -> None:
     print(f"{'─'*70}\n")
 
 
-def run_all_businesses(forecast_csv: str) -> None:
+def run_all_businesses(forecast_csv: str, neighbor_alerts: int = 0) -> None:
     forecast_df = pd.read_csv(forecast_csv)
     with open(DATA_DIR / "businesses.json") as f:
         businesses = json.load(f)
 
     for biz in businesses:
         print(f"\nPlanning for: {biz['name']} ({biz['type']})")
-        result = plan(forecast_df, biz["appliances"], biz["type"])
+        result = plan(forecast_df, biz["appliances"], biz["type"],
+                      neighbor_alerts=neighbor_alerts)
         print_plan_table(result)
 
 
@@ -194,12 +210,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Appliance Load-Shed Prioritizer")
     parser.add_argument("--forecast", required=True,      help="Path to forecast CSV")
     parser.add_argument("--business", default="all",      help="Business type or 'all'")
-    parser.add_argument("--low-risk", type=float, default=LOW_RISK)
-    parser.add_argument("--high-risk", type=float, default=HIGH_RISK)
+    parser.add_argument("--low-risk",        type=float, default=LOW_RISK)
+    parser.add_argument("--high-risk",       type=float, default=HIGH_RISK)
+    parser.add_argument("--neighbor-alerts", type=int,   default=0,
+                        help="Nearby businesses reporting live outages (≥2 forces HIGH risk)")
     args = parser.parse_args()
 
     if args.business == "all":
-        run_all_businesses(args.forecast)
+        run_all_businesses(args.forecast, neighbor_alerts=args.neighbor_alerts)
     else:
         forecast_df = pd.read_csv(args.forecast)
         with open(DATA_DIR / "businesses.json") as f:
@@ -209,5 +227,6 @@ if __name__ == "__main__":
             print(f"Business type '{args.business}' not found. Options: salon, cold_room, tailor")
         else:
             result = plan(forecast_df, biz["appliances"], biz["type"],
-                          args.low_risk, args.high_risk)
+                          args.low_risk, args.high_risk,
+                          neighbor_alerts=args.neighbor_alerts)
             print_plan_table(result)

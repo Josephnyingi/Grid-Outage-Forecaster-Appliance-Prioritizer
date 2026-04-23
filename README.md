@@ -13,7 +13,7 @@ python run_all.py
 ```
 
 `run_all.py` will:
-1. Generate 180 days of synthetic grid data (`data/`)
+1. Generate 365 days of synthetic grid data (`data/`)
 2. Train the LightGBM outage classifier + duration regressor (`models/`)
 3. Run 24-hour forecast + rolling 30-day evaluation (`outputs/`)
 4. Generate load-shed plans for all 3 business archetypes (`outputs/`)
@@ -36,7 +36,7 @@ Then open `lite_ui.html` in any browser to see the live dashboard.
 ├── SIGNED.md               # Honor code
 ├── requirements.txt
 ├── data/
-│   ├── grid_history.csv    # 180 days hourly (generated)
+│   ├── grid_history.csv    # 365 days hourly (generated)
 │   ├── appliances.json     # 10 appliances with categories
 │   └── businesses.json     # 3 archetypes: salon, cold_room, tailor
 ├── models/
@@ -57,11 +57,12 @@ Then open `lite_ui.html` in any browser to see the live dashboard.
 
 | Metric | Value |
 |--------|-------|
-| Brier Score | **0.0700** |
-| Brier Score (naïve baseline) | 0.0703 |
-| ROC-AUC | ~0.65 |
-| Duration MAE | 38.4 min |
-| Avg Lead Time | 1.0 h |
+| Brier Score | **0.0766** |
+| Brier Score (naïve baseline) | 0.0787 |
+| Brier Skill Score (BSS) | **+0.027** (beats naive) |
+| ROC-AUC | **0.68** |
+| Duration MAE | ~38 min |
+| Avg Lead Time | **1.6 h** |
 | Inference time | **< 60 ms** (CPU) |
 | Training time | **< 30 s** (CPU) |
 
@@ -70,15 +71,17 @@ Then open `lite_ui.html` in any browser to see the live dashboard.
 ## Architecture
 
 ### Forecaster (`forecaster.py`)
-- **Model**: LightGBM classifier (P(outage)) + LightGBM regressor (E[duration|outage])
-- **Calibration**: Isotonic regression fitted on validation set
-- **Features**: 36 engineered features — lagged load, rolling stats, weather, hour-of-day interactions
+
+- **Model**: LightGBM classifier (P(outage)) + LightGBM quantile regressor (E[duration|outage], q=0.50)
+- **Calibration**: 5-fold OOF predictions → LogisticRegression meta-learner (avoids distribution shift from fixed holdout)
+- **Features**: 48 engineered features — cyclical sin/cos hour/DOW/month encoding, lagged load, rolling stats, weather, DGP interaction terms (`rain×load_lag1`, `rain×hour_sin`)
 - **Output**: `p_outage`, `e_duration`, `lower_80`, `upper_80` per hour
 
 ### Prioritizer (`prioritizer.py`)
 - **Rule**: Drop luxury before critical (enforced by category sort)
 - **Thresholds**: Low < 10% ≤ Medium < 25% ≤ High
-- **core function**: `plan(forecast, appliances, business_type)` — see live demo in video
+- **Core function**: `plan(forecast, appliances, business_type, neighbor_alerts=0)`
+- **Neighbor signal**: `--neighbor-alerts N` — if N ≥ 2 nearby businesses report live outages, all hours forced to HIGH RISK (crowd override, no additional ML needed)
 
 ### Lite UI (`lite_ui.html`)
 - Static HTML + Chart.js (CDN) — **13 KB**, no server required

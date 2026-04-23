@@ -114,10 +114,32 @@ circuits when AMBER or RED.
 
 ---
 
-## 5. Neighbour Signal (Stretch Goal)
+## 5. Neighbour Signal — Implemented
 
-When 2 or more businesses within a 500m radius report actual outages via SMS in the last 30 minutes,
-the system re-ranks the current hour to **HIGH RISK** regardless of the model's P(outage).
-This crowd signal captures fault propagation that the load/weather features cannot see.
+When 2 or more businesses within a 500m radius report live outages via SMS in the last 30 minutes,
+the system forces **ALL hours to HIGH RISK** regardless of the model's P(outage).
+This crowd signal captures fault propagation that load/weather features cannot see.
 
-Implementation: a simple counter on the SMS gateway; no additional ML required.
+### How to invoke
+
+```bash
+python3 prioritizer.py --forecast outputs/forecast_2024-12-31.csv \
+    --business salon --neighbor-alerts 2
+```
+
+Output includes:
+
+```text
+⚡ NEIGHBOR OVERRIDE: 2 nearby outages reported — forcing all hours to HIGH RISK.
+```
+
+Each hour in the plan JSON gets `"neighbor_override": true`.
+
+### Design rationale
+
+- No additional ML required — it's a deterministic override on top of the probabilistic forecast.
+- Threshold of 2 prevents single false reports from triggering a full shed.
+- The override is scoped to the current planning cycle; next morning's SMS uses the fresh forecast.
+- Complements the model: the LightGBM classifier uses load and rain features, which are slow to react
+  to a fault that just propagated from a nearby feeder. Two confirmed neighbour reports are a faster
+  and more reliable signal than waiting for load to spike in the lag features.

@@ -54,134 +54,134 @@
       "ON"
     ],
     "LED Lighting (main)": [
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON"
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF"
     ],
     "Ceiling Fan": [
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON"
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF"
     ],
     "Decorative Lighting": [
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "OFF",
-      "OFF",
-      "OFF",
-      "OFF",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
       "OFF",
       "OFF",
       "OFF",
       "OFF",
       "OFF",
-      "ON"
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF"
     ],
     "Television": [
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "OFF",
-      "OFF",
-      "OFF",
-      "OFF",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
       "OFF",
       "OFF",
       "OFF",
       "OFF",
       "OFF",
-      "ON"
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF"
     ],
     "Sound System": [
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "OFF",
-      "OFF",
-      "OFF",
-      "OFF",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
-      "ON",
       "OFF",
       "OFF",
       "OFF",
       "OFF",
       "OFF",
-      "ON"
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF",
+      "OFF"
     ]
   },
   "hourly_summary": [
@@ -189,450 +189,491 @@
       "hour": 0,
       "p_outage": 0.0563,
       "e_duration_min": 75.2,
-      "risk_level": "low",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
         "LED Lighting (main)",
         "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 2385,
-      "expected_revenue_rwf": 8398.93
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6605.9
     },
     {
       "hour": 1,
       "p_outage": 0.0538,
       "e_duration_min": 72.5,
-      "risk_level": "low",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
         "LED Lighting (main)",
         "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 2385,
-      "expected_revenue_rwf": 8421.18
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6623.4
     },
     {
       "hour": 2,
       "p_outage": 0.0512,
       "e_duration_min": 77.8,
-      "risk_level": "low",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
         "LED Lighting (main)",
         "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 2385,
-      "expected_revenue_rwf": 8444.32
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6641.6
     },
     {
       "hour": 3,
       "p_outage": 0.0516,
       "e_duration_min": 77.4,
-      "risk_level": "low",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
         "LED Lighting (main)",
         "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 2385,
-      "expected_revenue_rwf": 8440.76
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6638.8
     },
     {
       "hour": 4,
       "p_outage": 0.0544,
       "e_duration_min": 77.5,
-      "risk_level": "low",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
         "LED Lighting (main)",
         "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 2385,
-      "expected_revenue_rwf": 8415.84
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6619.2
     },
     {
       "hour": 5,
       "p_outage": 0.0625,
       "e_duration_min": 70.7,
-      "risk_level": "low",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
         "LED Lighting (main)",
         "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 2385,
-      "expected_revenue_rwf": 8343.75
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6562.5
     },
     {
       "hour": 6,
       "p_outage": 0.0776,
       "e_duration_min": 68.4,
-      "risk_level": "low",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
         "LED Lighting (main)",
         "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 2385,
-      "expected_revenue_rwf": 8209.36
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6456.8
     },
     {
       "hour": 7,
       "p_outage": 0.0997,
       "e_duration_min": 67.2,
-      "risk_level": "low",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
         "LED Lighting (main)",
         "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 2385,
-      "expected_revenue_rwf": 8012.67
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6302.1
     },
     {
       "hour": 8,
       "p_outage": 0.1265,
       "e_duration_min": 69.5,
-      "risk_level": "medium",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
-        "LED Lighting (main)",
-        "Ceiling Fan"
+        "Hair Dryer"
       ],
       "appliances_off": [
+        "LED Lighting (main)",
+        "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "total_load_w": 2005,
-      "expected_revenue_rwf": 7250.05
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6114.5
     },
     {
       "hour": 9,
       "p_outage": 0.139,
       "e_duration_min": 70.1,
-      "risk_level": "medium",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
-        "LED Lighting (main)",
-        "Ceiling Fan"
+        "Hair Dryer"
       ],
       "appliances_off": [
+        "LED Lighting (main)",
+        "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "total_load_w": 2005,
-      "expected_revenue_rwf": 7146.3
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6027.0
     },
     {
       "hour": 10,
       "p_outage": 0.1314,
       "e_duration_min": 71.4,
-      "risk_level": "medium",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
-        "LED Lighting (main)",
-        "Ceiling Fan"
+        "Hair Dryer"
       ],
       "appliances_off": [
+        "LED Lighting (main)",
+        "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "total_load_w": 2005,
-      "expected_revenue_rwf": 7209.38
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6080.2
     },
     {
       "hour": 11,
       "p_outage": 0.1114,
       "e_duration_min": 71.9,
-      "risk_level": "medium",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
-        "LED Lighting (main)",
-        "Ceiling Fan"
+        "Hair Dryer"
       ],
       "appliances_off": [
+        "LED Lighting (main)",
+        "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "total_load_w": 2005,
-      "expected_revenue_rwf": 7375.38
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6220.2
     },
     {
       "hour": 12,
       "p_outage": 0.0924,
       "e_duration_min": 73.0,
-      "risk_level": "low",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
         "LED Lighting (main)",
         "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 2385,
-      "expected_revenue_rwf": 8077.64
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6353.2
     },
     {
       "hour": 13,
       "p_outage": 0.0802,
       "e_duration_min": 74.8,
-      "risk_level": "low",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
         "LED Lighting (main)",
         "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 2385,
-      "expected_revenue_rwf": 8186.22
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6438.6
     },
     {
       "hour": 14,
       "p_outage": 0.0732,
       "e_duration_min": 81.7,
-      "risk_level": "low",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
         "LED Lighting (main)",
         "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 2385,
-      "expected_revenue_rwf": 8248.52
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6487.6
     },
     {
       "hour": 15,
       "p_outage": 0.0726,
       "e_duration_min": 81.5,
-      "risk_level": "low",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
         "LED Lighting (main)",
         "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 2385,
-      "expected_revenue_rwf": 8253.86
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6491.8
     },
     {
       "hour": 16,
       "p_outage": 0.0782,
       "e_duration_min": 79.6,
-      "risk_level": "low",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
         "LED Lighting (main)",
         "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 2385,
-      "expected_revenue_rwf": 8204.02
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6452.6
     },
     {
       "hour": 17,
       "p_outage": 0.0935,
       "e_duration_min": 74.3,
-      "risk_level": "low",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
         "LED Lighting (main)",
         "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 2385,
-      "expected_revenue_rwf": 8067.85
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6345.5
     },
     {
       "hour": 18,
       "p_outage": 0.1226,
       "e_duration_min": 72.7,
-      "risk_level": "medium",
+      "risk_level": "high",
+      "neighbor_override": true,
       "appliances_on": [
         "POS / Cash Register",
-        "Hair Dryer",
-        "LED Lighting (main)",
-        "Ceiling Fan"
+        "Hair Dryer"
       ],
       "appliances_off": [
-        "Decorative Lighting",
-        "Television",
-        "Sound System"
-      ],
-      "total_load_w": 2005,
-      "expected_revenue_rwf": 7282.42
-    },
-    {
-      "hour": 19,
-      "p_outage": 0.1519,
-      "e_duration_min": 72.5,
-      "risk_level": "medium",
-      "appliances_on": [
-        "POS / Cash Register",
-        "Hair Dryer",
-        "LED Lighting (main)",
-        "Ceiling Fan"
-      ],
-      "appliances_off": [
-        "Decorative Lighting",
-        "Television",
-        "Sound System"
-      ],
-      "total_load_w": 2005,
-      "expected_revenue_rwf": 7039.23
-    },
-    {
-      "hour": 20,
-      "p_outage": 0.1626,
-      "e_duration_min": 72.7,
-      "risk_level": "medium",
-      "appliances_on": [
-        "POS / Cash Register",
-        "Hair Dryer",
-        "LED Lighting (main)",
-        "Ceiling Fan"
-      ],
-      "appliances_off": [
-        "Decorative Lighting",
-        "Television",
-        "Sound System"
-      ],
-      "total_load_w": 2005,
-      "expected_revenue_rwf": 6950.42
-    },
-    {
-      "hour": 21,
-      "p_outage": 0.1419,
-      "e_duration_min": 74.7,
-      "risk_level": "medium",
-      "appliances_on": [
-        "POS / Cash Register",
-        "Hair Dryer",
-        "LED Lighting (main)",
-        "Ceiling Fan"
-      ],
-      "appliances_off": [
-        "Decorative Lighting",
-        "Television",
-        "Sound System"
-      ],
-      "total_load_w": 2005,
-      "expected_revenue_rwf": 7122.23
-    },
-    {
-      "hour": 22,
-      "p_outage": 0.1044,
-      "e_duration_min": 73.4,
-      "risk_level": "medium",
-      "appliances_on": [
-        "POS / Cash Register",
-        "Hair Dryer",
-        "LED Lighting (main)",
-        "Ceiling Fan"
-      ],
-      "appliances_off": [
-        "Decorative Lighting",
-        "Television",
-        "Sound System"
-      ],
-      "total_load_w": 2005,
-      "expected_revenue_rwf": 7433.48
-    },
-    {
-      "hour": 23,
-      "p_outage": 0.0776,
-      "e_duration_min": 74.6,
-      "risk_level": "low",
-      "appliances_on": [
-        "POS / Cash Register",
-        "Hair Dryer",
         "LED Lighting (main)",
         "Ceiling Fan",
         "Decorative Lighting",
         "Television",
         "Sound System"
       ],
-      "appliances_off": [],
-      "total_load_w": 2385,
-      "expected_revenue_rwf": 8209.36
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6141.8
+    },
+    {
+      "hour": 19,
+      "p_outage": 0.1519,
+      "e_duration_min": 72.5,
+      "risk_level": "high",
+      "neighbor_override": true,
+      "appliances_on": [
+        "POS / Cash Register",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
+        "LED Lighting (main)",
+        "Ceiling Fan",
+        "Decorative Lighting",
+        "Television",
+        "Sound System"
+      ],
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 5936.7
+    },
+    {
+      "hour": 20,
+      "p_outage": 0.1626,
+      "e_duration_min": 72.7,
+      "risk_level": "high",
+      "neighbor_override": true,
+      "appliances_on": [
+        "POS / Cash Register",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
+        "LED Lighting (main)",
+        "Ceiling Fan",
+        "Decorative Lighting",
+        "Television",
+        "Sound System"
+      ],
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 5861.8
+    },
+    {
+      "hour": 21,
+      "p_outage": 0.1419,
+      "e_duration_min": 74.7,
+      "risk_level": "high",
+      "neighbor_override": true,
+      "appliances_on": [
+        "POS / Cash Register",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
+        "LED Lighting (main)",
+        "Ceiling Fan",
+        "Decorative Lighting",
+        "Television",
+        "Sound System"
+      ],
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6006.7
+    },
+    {
+      "hour": 22,
+      "p_outage": 0.1044,
+      "e_duration_min": 73.4,
+      "risk_level": "high",
+      "neighbor_override": true,
+      "appliances_on": [
+        "POS / Cash Register",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
+        "LED Lighting (main)",
+        "Ceiling Fan",
+        "Decorative Lighting",
+        "Television",
+        "Sound System"
+      ],
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6269.2
+    },
+    {
+      "hour": 23,
+      "p_outage": 0.0776,
+      "e_duration_min": 74.6,
+      "risk_level": "high",
+      "neighbor_override": true,
+      "appliances_on": [
+        "POS / Cash Register",
+        "Hair Dryer"
+      ],
+      "appliances_off": [
+        "LED Lighting (main)",
+        "Ceiling Fan",
+        "Decorative Lighting",
+        "Television",
+        "Sound System"
+      ],
+      "total_load_w": 1850,
+      "expected_revenue_rwf": 6456.8
     }
   ],
-  "total_expected_revenue_rwf": 188743.17,
+  "total_expected_revenue_rwf": 152134.5,
   "total_naive_revenue_rwf": 193428.15,
-  "revenue_difference_rwf": -4684.98,
-  "kwh_saved_by_shedding": 0.453,
+  "revenue_difference_rwf": -41293.65,
+  "kwh_saved_by_shedding": 0.638,
   "thresholds": {
     "low_risk": 0.1,
     "high_risk": 0.25
-  }
+  },
+  "neighbor_override_active": true,
+  "neighbor_alerts_received": 2
 }
