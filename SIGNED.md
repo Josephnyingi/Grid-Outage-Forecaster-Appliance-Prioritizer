@@ -1,7 +1,7 @@
 # SIGNED.md — Honor Code Declaration
 ## T2.3 Grid Outage Forecaster + Appliance Prioritizer
 
-**Full Name:** Joseph Nyingi
+**Full Name:** Nyingi Joseph
 
 **Date:** 2026-04-23
 
@@ -15,7 +15,7 @@
 
 ---
 
-**Signed:** Joseph Nyingi
+**Signed:** Nyingi Joseph
 
 **Date:** 2026-04-23
 
