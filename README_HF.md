@@ -1,19 +1,19 @@
 ---
 title: Grid Outage Forecaster
 emoji: ⚡
-colorFrom: orange
+colorFrom: yellow
 colorTo: red
 sdk: gradio
 sdk_version: 4.44.0
 app_file: app.py
 pinned: true
 license: mit
-short_description: 24h grid outage forecast + appliance load-shed planner for Rwanda SMEs
+short_description: 24h grid outage forecast + appliance planner for Rwanda
 ---
 
 # ⚡ Grid Outage Forecaster + Appliance Prioritizer
 
-**AIMS KTT Hackathon T2.3 | Nyingi Joseph**
+## AIMS KTT Hackathon T2.3 | Nyingi Joseph
 
 Probabilistic 24-hour grid outage forecaster and appliance load-shed planner for small businesses (salons, cold rooms, tailor shops) in Rwanda. Maximises revenue during outages by ranking appliances critical → comfort → luxury.
 
