@@ -303,7 +303,7 @@ with gr.Blocks(title="Grid Outage Forecaster", theme=gr.themes.Soft()) as demo:
     with gr.Tabs():
 
         # ── Tab 1 ────────────────────────────────────────────────────────────
-        with gr.TabItem("📊 Forecast & Appliance Plan"):
+        with gr.Tab("📊 Forecast & Appliance Plan"):
             with gr.Row():
                 with gr.Column(scale=1):
                     biz_dd = gr.Dropdown(
@@ -340,7 +340,7 @@ with gr.Blocks(title="Grid Outage Forecaster", theme=gr.themes.Soft()) as demo:
             )
 
         # ── Tab 2 ────────────────────────────────────────────────────────────
-        with gr.TabItem("🌧 Live Kigali Weather"):
+        with gr.Tab("🌧 Live Kigali Weather"):
             gr.Markdown(
                 "Fetch **real** weather from OpenMeteo and run inference — "
                 "demonstrating the model generalizes beyond synthetic training data."
